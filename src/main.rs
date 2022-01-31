@@ -69,7 +69,6 @@ fn generate_colors(event_sink: druid::ExtEventSink) {
     // commands to the main thread. Every time we generate a new colour we send it
     // to the main thread.
     
-    //let start_time = Instant::now();
     let mut rng = rand::thread_rng();
     let mut left_color = Color::BLACK;
     let mut right_color = Color::BLACK;
@@ -90,9 +89,6 @@ fn generate_colors(event_sink: druid::ExtEventSink) {
             }
         }
 
-        // Randomly pick a color to change and set it to the target colour.
-
-        // Clear any color
         reset(&mut left_color, &mut right_color, &mut bottom_color);
 
         let r = rng.gen_range(0,3);
@@ -136,10 +132,6 @@ fn reset(left: &mut Color, right: &mut Color, bottom: &mut Color) {
 }
 
 fn make_ui() -> impl Widget<AppData> {
-    // let top_left = make_box(0);
-    // let top_right = make_box(1);
-    // let bottom = make_box(2);
-
     let top_left = Painter::new(|ctx, data: &AppData, _env| {
         let rect = ctx.size().to_rounded_rect(5.0);
         ctx.fill(rect, &data.top_left );
@@ -164,14 +156,3 @@ fn make_ui() -> impl Widget<AppData> {
         )
         .with_flex_child(bottom, 1.0)
 }
-
-// fn make_box() -> impl Widget<Color> {
-//     Painter::new(|ctx, data, _env| {
-//         let rect = ctx.size().to_rounded_rect(5.0);
-//         ctx.fill(rect, data);
-//     })
-//     .fix_width(300.0)
-//     .fix_height(300.0)
-//     .padding(10.0)
-//     .center()
-// }
