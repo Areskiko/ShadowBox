@@ -1,8 +1,10 @@
-use druid::{Widget, widget::{Painter, Flex}};
-use druid::{RenderContext};
+use druid::RenderContext;
+use druid::{
+    widget::{Flex, Painter},
+    Widget,
+};
 
-use crate::logic::appdata::AppData;
-
+use crate::logic::app_data::AppData;
 
 pub fn make_ui() -> impl Widget<AppData> {
     let top_left = Painter::new(|ctx, data: &AppData, _env| {

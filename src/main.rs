@@ -1,17 +1,13 @@
 // On Windows platform, don't show a console when opening the app.
 #![windows_subsystem = "windows"]
 
+use shadow_box::logic::app_data::AppData;
 use shadow_box::logic::colors::generate_colors;
-use shadow_box::logic::appdata::AppData;
 use shadow_box::ui::parent::make_ui;
-
 
 use std::thread;
 
-
-
 use druid::{AppLauncher, Color, WindowDesc};
-
 
 pub fn main() {
     let window = WindowDesc::new(make_ui()).title("Shadow Boxing");
@@ -40,7 +36,3 @@ pub fn main() {
         .launch(data)
         .expect("launch failed");
 }
-
-
-
-

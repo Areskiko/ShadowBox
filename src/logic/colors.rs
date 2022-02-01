@@ -1,10 +1,11 @@
+use rand::Rng;
 use std::thread;
 use std::time::Duration;
-use rand::Rng;
 
 use druid::Color;
 
-use super::appdata::AppData;
+use super::app_data::AppData;
+use super::set::Set;
 
 pub fn generate_colors(event_sink: druid::ExtEventSink) {
     // This function is called in a separate thread, and runs until the program ends.
