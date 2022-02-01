@@ -1,5 +1,4 @@
-use druid::{Data, Lens, Color};
-
+use druid::{Color, Data, Lens};
 
 #[derive(Clone, Data, Lens)]
 pub struct AppData {
