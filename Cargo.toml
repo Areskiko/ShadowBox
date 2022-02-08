@@ -6,8 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-druid = "*"
+druid = { git = "https://github.com/linebender/druid.git" }
 instant = "*"
 rand = "*"
-[patch.crates-io]
-druid = { git = "https://github.com/linebender/druid.git" }
