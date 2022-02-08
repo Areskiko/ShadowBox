@@ -26,12 +26,11 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - uses: actions/checkout@v2
+      - run: sudo apt-get install libgtk-3-dev
+        if: matrix.os == 'ubuntu-latest'
       - name: Build
         run: cargo build --release
       
-      - run: sudo apt-get install libgtk-3-dev
-        if: matrix.os == 'ubuntu-latest'
 
       - name: Release MacOs
         if: matrix.os == 'macos-latest'
