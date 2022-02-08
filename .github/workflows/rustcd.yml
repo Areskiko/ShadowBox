@@ -36,7 +36,7 @@ jobs:
         run: mv target/release/shadow_box target/release/${{ matrix.os }}-shadow_box
       - name: Rename Binary Windows
         if: matrix.os == 'windows-latest'
-        run: move target\release\shadow_box target\release\${{ matrix.os }}-shadow_box.exe # Stupid windows
+        run: move target\release\shadow_box.exe target\release\${{ matrix.os }}-shadow_box.exe # Stupid windows
 
       - name: Release
         if: matrix.os != 'windows-latest'
