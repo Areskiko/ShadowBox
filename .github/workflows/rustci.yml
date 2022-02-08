@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install dependencies
-      run: sudo apt-get install libgtk-3-dev
-    - uses: actions/checkout@v2
     - uses: actions/cache@v2
       with:
         path: |
@@ -25,6 +23,8 @@ jobs:
           ~/.cargo/git/db/
           target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    - name: Install dependencies
+      run: sudo apt-get install libgtk-3-dev
     - name: Check
       run: cargo check --verbose
     - name: Build
@@ -44,6 +44,8 @@ jobs:
           ~/.cargo/git/db/
           target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      run: sudo apt-get install libgtk-3-dev
+    - uses: actions/checkout@v2
     - name: Run tests
       run: cargo test --verbose
       
