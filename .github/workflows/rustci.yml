@@ -13,8 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Pango
-      run: sudo apt install libpango1.0-dev libatk1.0-0
+    - name: Install dependencies
+      run: sudo apt-get install libgtk2.0-dev
     - uses: actions/checkout@v2
     - uses: actions/cache@v2
       with:
