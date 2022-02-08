@@ -10,7 +10,7 @@ env:
 
 jobs:
   release:
-   runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
         matrix:
           os: [ubuntu-latest, macos-latest, windows-latest]
