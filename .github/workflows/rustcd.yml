@@ -32,7 +32,7 @@ jobs:
         run: cargo build --release
       
       - name: Rename Binary
-        if: matrix.os != 'windows-latest' && matrx.os != 'macos-latest'
+        if: matrix.os != 'windows-latest' && matrix.os != 'macos-latest'
         run: mv target/release/shadow_box target/reklease/${{ matrix.os }}_shadow_box
       - name: Rename Binary MacOS
         if: matrx.os == 'macos-latest'
