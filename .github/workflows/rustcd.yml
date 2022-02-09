@@ -32,8 +32,11 @@ jobs:
         run: cargo build --release
       
       - name: Rename Binary
-        if: matrix.os != 'windows-latest'
-        run: mv target/release/shadow_box target/release/${{ matrix.os }}-shadow_box
+        if: matrix.os != 'windows-latest' && matrx.os != 'macos-latest'
+        run: mv target/release/shadow_box target/reklease/${{ matrix.os }}_shadow_box
+      - name: Rename Binary MacOS
+        if: matrx.os == 'macos-latest'
+        run: mv target/release/shadow_box target/reklease/${{ matrix.os }}_shadow_box.app
       - name: Rename Binary Windows
         if: matrix.os == 'windows-latest'
         run: move target\release\shadow_box target\release\${{ matrix.os }}-shadow_box.exe # Stupid windows
