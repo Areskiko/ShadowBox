@@ -33,10 +33,10 @@ jobs:
       
       - name: Rename Binary
         if: matrix.os != 'windows-latest' && matrix.os != 'macos-latest'
-        run: mv target/release/shadow_box target/reklease/${{ matrix.os }}_shadow_box
+        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box
       - name: Rename Binary MacOS
-        if: matrx.os == 'macos-latest'
-        run: mv target/release/shadow_box target/reklease/${{ matrix.os }}_shadow_box.app
+        if: matrix.os == 'macos-latest'
+        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box.app
       - name: Rename Binary Windows
         if: matrix.os == 'windows-latest'
         run: move target\release\shadow_box target\release\${{ matrix.os }}-shadow_box.exe # Stupid windows
