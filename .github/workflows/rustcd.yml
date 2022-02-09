@@ -36,7 +36,7 @@ jobs:
         run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box
       - name: Rename Binary MacOS
         if: matrix.os == 'macos-latest'
-        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box.app
+        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box
       - name: Rename Binary Windows
         if: matrix.os == 'windows-latest'
         run: move target\release\shadow_box.exe target\release\${{ matrix.os }}_shadow_box.exe # Stupid windows
@@ -50,7 +50,7 @@ jobs:
         if: matrix.os == 'macos-latest'
         uses: softprops/action-gh-release@v1
         with:
-          files: target/release/${{ matrix.os }}_shadow_box.app
+          files: target/release/${{ matrix.os }}_shadow_box
       - name: Release Windows
         if: matrix.os == 'windows-latest'
         uses: softprops/action-gh-release@v1
