@@ -32,19 +32,26 @@ jobs:
         run: cargo build --release
       
       - name: Rename Binary
-        if: matrix.os != 'windows-latest'
-        run: mv target/release/shadow_box target/release/${{ matrix.os }}-shadow_box
+        if: matrix.os != 'windows-latest' && matrix.os != 'macos-latest'
+        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box
+      - name: Rename Binary MacOS
+        if: matrix.os == 'macos-latest'
+        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box.app
       - name: Rename Binary Windows
         if: matrix.os == 'windows-latest'
-        run: move target\release\shadow_box.exe target\release\${{ matrix.os }}-shadow_box.exe # Stupid windows
+        run: move target\release\shadow_box.exe target\release\${{ matrix.os }}_shadow_box.exe # Stupid windows
+
+      - name: Compress Binary
+        if: matrix.os != 'windows-latest' && matrix.os != 'macos-latest'
+        run: tar -cf ${{ matrix.os }}-release.zip target/release/${{ matrix.os }}_shadow_box
+      - name: Compress Binary MacOS
+        if: matrix.os == 'macos-latest'
+        run: tar -cf ${{ matrix.os }}-release.zip target/release/${{ matrix.os }}_shadow_box.app
+      - name: Compress Binary Windows
+        if: matrix.os == 'windows-latest'
+        run: tar -cf ${{ matrix.os }}-release.zip target\release\${{ matrix.os }}_shadow_box.exe # Stupid windows
 
       - name: Release
-        if: matrix.os != 'windows-latest'
         uses: softprops/action-gh-release@v1
         with:
-          files: target/release/${{ matrix.os }}-shadow_box
-      - name: Release Windows
-        if: matrix.os == 'windows-latest'
-        uses: softprops/action-gh-release@v1
-        with:
-          files: target/release/${{ matrix.os }}shadow_box.exe
+          files: ${{ matrix.os }}-release.zip
