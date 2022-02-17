@@ -28,15 +28,15 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Setup
-        run: echo "BIN=shadow_box.exe" >> $env:GITHUB_ENV && echo "TARGET=shadow_box.exe" >> $env:GITHUB_ENV
+        run: echo "BIN=shadow_box.exe" >> $env:GITHUB_ENV && echo "TARGET=shadow_box-win.exe" >> $env:GITHUB_ENV # Seriously fuck you windows
         if: matrix.os == 'windows-latest'
 
       - name: Setup
-        run: echo "BIN=shadow_box" >> $GITHUB_ENV && echo "TARGET=shadow_box.app" >> $GITHUB_ENV
+        run: echo "BIN=shadow_box" >> $GITHUB_ENV && echo "TARGET=shadow_box-mac.app" >> $GITHUB_ENV
         if: matrix.os == 'macos-latest'
 
       - name: Setup
-        run: echo "BIN=shadow_box" >> $GITHUB_ENV && echo "TARGET=shadow_box" >> $GITHUB_ENV
+        run: echo "BIN=shadow_box" >> $GITHUB_ENV && echo "TARGET=shadow_box-ubu" >> $GITHUB_ENV
         if: matrix.os == 'ubuntu-latest'
 
       - run: sudo apt-get install libgtk-3-dev
