@@ -46,17 +46,17 @@ jobs:
       
       - name: Rename Binary
         if: matrix.os != 'windows-latest'
-        run: mv target/release/${{ BIN }} target/release/${{ TARGET }}
+        run: mv target/release/${{ env.BIN }} target/release/${{ env.TARGET }}
 
       - name: Rename Binary Windows
         if: matrix.os == 'windows-latest'
-        run: move target\release\${{ BIN }} target\release\${{ TARGET }} # Stupid windows
+        run: move target\release\${{ env.BIN }} target\release\${{ env.TARGET }} # Stupid windows
 
 
       - name: Zip Binary
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq ${{ matrix.os }}-release.zip target/release/${{ TARGET }}
+          args: zip -qq ${{ matrix.os }}-release.zip target/release/${{ env.TARGET }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
