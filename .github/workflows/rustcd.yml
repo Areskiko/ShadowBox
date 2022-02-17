@@ -26,30 +26,37 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Setup
+        run: echo "BIN=shadow_box.exe\nTARGET=shadow_box.exe" >> $GITHUB_ENV
+        if: matrix.os == 'windows-latest'
+
+      - name: Setup
+        run: echo "BIN=shadow_box\nTARGET=shadow_box.app" >> $GITHUB_ENV
+        if: matrix.os == 'macos-latest'
+
+      - name: Setup
+        run: echo "BIN=shadow_box\nTARGET=shadow_box" >> $GITHUB_ENV
+        if: matrix.os == 'ubuntu-latest'
+
       - run: sudo apt-get install libgtk-3-dev
         if: matrix.os == 'ubuntu-latest'
       - name: Build
         run: cargo build --release
       
       - name: Rename Binary
-        if: matrix.os != 'windows-latest' && matrix.os != 'macos-latest'
-        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box
-      - name: Rename Binary MacOS
-        if: matrix.os == 'macos-latest'
-        run: mv target/release/shadow_box target/release/${{ matrix.os }}_shadow_box.app
+        if: matrix.os != 'windows-latest'
+        run: mv target/release/${{ BIN }} target/release/${{ TARGET }}
+
       - name: Rename Binary Windows
         if: matrix.os == 'windows-latest'
-        run: move target\release\shadow_box.exe target\release\${{ matrix.os }}_shadow_box.exe # Stupid windows
+        run: move target\release\${{ BIN }} target\release\${{ TARGET }} # Stupid windows
 
-      - name: Compress Binary
-        if: matrix.os != 'windows-latest' && matrix.os != 'macos-latest'
-        run: tar -cf ${{ matrix.os }}-release.zip target/release/${{ matrix.os }}_shadow_box
-      - name: Compress Binary MacOS
-        if: matrix.os == 'macos-latest'
-        run: tar -cf ${{ matrix.os }}-release.zip target/release/${{ matrix.os }}_shadow_box.app
-      - name: Compress Binary Windows
-        if: matrix.os == 'windows-latest'
-        run: tar -cf ${{ matrix.os }}-release.zip target\release\${{ matrix.os }}_shadow_box.exe # Stupid windows
+
+      - name: Zip Binary
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq ${{ matrix.os }}-release.zip target/release/${{ TARGET }}
 
       - name: Release
         uses: softprops/action-gh-release@v1
